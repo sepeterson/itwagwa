@@ -1,2 +1,2 @@
 # itwagwa
-Imagine there was a good weather app (there isn't)
+Imagine there were a good weather app (there isn't)
