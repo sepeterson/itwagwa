@@ -32,7 +32,7 @@ class MainScreen extends Component<Props> {
     return (
       <View style={styles.container}>
         <Text>boy this sure is gonna be an app</Text>
-        <Button title="get it dude" onPress={() => this.getWeatherDataAsync()} />
+        <Button title="get it dude" onPress={this.props.getWeather} />
       </View>
     );
   }
