@@ -10,8 +10,8 @@ export const getWeather = () => ({
   type: GET_WEATHER,
 });
 
-export const getWeatherSuccess = () => ({
-  type: GET_WEATHER_SUCCESS,
+export const getWeatherSuccess = (weatherData) => ({
+  type: GET_WEATHER_SUCCESS, weatherData
 });
 
 export const getWeatherFail = () => ({
