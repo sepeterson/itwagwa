@@ -7,33 +7,26 @@
  */
 
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, ScrollView, RefreshControl } from "react-native";
 import { connect } from "react-redux";
 import * as actions from "./state/actions";
-import apiKey from '../apiKey.json';
+import * as selectors from "./state/selectors";
+import apiKey from "../apiKey.json";
 
-type Props = { getWeather: () => void };
+type Props = { getWeather: () => void, fetching: boolean };
 class MainScreen extends Component<Props> {
-  getWeatherDataAsync = () => {
-    return fetch(
-      `https://api.darksky.net/forecast/${apiKey.darkSkyKey}/38.8933,-77.0800?lang=de`
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        // this.setState({ text: JSON.stringify(responseJson)});
-        console.log(JSON.stringify(responseJson))
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>boy this sure is gonna be an app</Text>
-        <Button title="get it dude" onPress={this.props.getWeather} />
-      </View>
+      <ScrollView style={styles.container} refreshControl={
+          <RefreshControl
+            refreshing={this.props.fetching}
+            onRefresh={this.props.getWeather}
+          />
+        }>
+        <Text>WEATHER!! DATA!!! GOES!!!! HERE!!!!!</Text>
+        {this.props.fetching && <Text>FETCHING!!!!</Text>}
+      </ScrollView>
     );
   }
 }
@@ -41,16 +34,13 @@ class MainScreen extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#F5FCFF"
   }
 });
 
 const mapStateToProps = state => {
-  //let storedRepositories = state.repos.map(repo => ({ key: repo.id, ...repo }));
   return {
-    //repos: storedRepositories
+    fetching: selectors.getFetching(state)
   };
 };
 
