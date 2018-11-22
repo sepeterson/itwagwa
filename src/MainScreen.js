@@ -32,7 +32,7 @@ class MainScreen extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#565c60"
   }
 });
 

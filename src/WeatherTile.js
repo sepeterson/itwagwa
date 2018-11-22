@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import { StyleSheet, Text, View, RefreshControl } from "react-native";
+import Moment from "moment";
 import type { HourlyData } from "./state/types";
 
 type Props = { weatherData: HourlyData };
@@ -11,7 +12,7 @@ export default class WeatherTile extends Component<Props> {
     const data = this.props.weatherData;
     return (
       <View style={styles.container} >
-        <Text style={[styles.smallText, styles.allText]}>time: {data.time}</Text>
+        <Text style={[styles.smallText, styles.allText]}>{Moment().format('MMMM Do, h:mm a')}</Text>
         <Text style={[styles.largeText, styles.allText]}>{data.summary}</Text>
         <Text style={[styles.largeText, styles.allText]}>{`${data.temperature}°`}</Text>
         <Text style={[styles.smallText, styles.allText]}>Feels like: {data.apparentTemperature}°</Text>
@@ -25,7 +26,6 @@ export default class WeatherTile extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#F5FCFF"
   },
   largeText: {
