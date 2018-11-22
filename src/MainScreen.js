@@ -1,19 +1,17 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
  * @flow
  */
 
 import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, RefreshControl } from "react-native";
+import WeatherTile from './WeatherTile';
 import { connect } from "react-redux";
 import * as actions from "./state/actions";
 import * as selectors from "./state/selectors";
 import apiKey from "../apiKey.json";
+import type { HourlyData } from "./state/types";
 
-type Props = { getWeather: () => void, fetching: boolean };
+type Props = { getWeather: () => void, fetching: boolean, currentData?: HourlyData, };
 class MainScreen extends Component<Props> {
 
   render() {
@@ -25,6 +23,7 @@ class MainScreen extends Component<Props> {
           />
         }>
         <Text>WEATHER!! DATA!!! GOES!!!! HERE!!!!!</Text>
+        {this.props.currentData && <WeatherTile weatherData={this.props.currentData} />}
         {this.props.fetching && <Text>FETCHING!!!!</Text>}
       </ScrollView>
     );
@@ -40,7 +39,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    fetching: selectors.getFetching(state)
+    fetching: selectors.getFetching(state),
+    currentData: selectors.getCurrentData(state),
   };
 };
 
