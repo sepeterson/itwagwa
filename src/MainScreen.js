@@ -22,7 +22,6 @@ class MainScreen extends Component<Props> {
             onRefresh={this.props.getWeather}
           />
         }>
-        <Text>WEATHER!! DATA!!! GOES!!!! HERE!!!!!</Text>
         {this.props.currentData && <WeatherTile weatherData={this.props.currentData} />}
         {this.props.fetching && <Text>FETCHING!!!!</Text>}
       </ScrollView>
