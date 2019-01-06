@@ -31,6 +31,7 @@ const getUserLocation = () =>
 function* getLocation(action) {
   try {
     const location = yield call(getUserLocation);
+    yield put(actions.getWeather(location.coords));
     yield put(actions.getLocationSuccess(location.coords));
   } catch (e) {
     yield put(actions.getLocationFail());
@@ -38,7 +39,7 @@ function* getLocation(action) {
 }
 
 function* weatherSaga() {
-  yield takeEvery(actions.GET_LOCATION_SUCCESS, getWeather);
+  yield takeEvery(actions.GET_WEATHER, getWeather);
   yield takeEvery(actions.GET_LOCATION, getLocation);
 }
 

@@ -7,8 +7,8 @@ export const GET_LOCATION = 'weather/GET_LOCATION';
 export const GET_LOCATION_SUCCESS = 'weather/GET_LOCATION_SUCCESS';
 export const GET_LOCATION_FAIL = 'weather/GET_LOCATION_FAIL';
 
-export const getWeather = () => ({
-  type: GET_WEATHER,
+export const getWeather = (locationData) => ({
+  type: GET_WEATHER, locationData
 });
 
 export const getWeatherSuccess = (weatherData) => ({

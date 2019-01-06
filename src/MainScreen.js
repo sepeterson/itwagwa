@@ -20,21 +20,11 @@ import type { HourlyData } from "./state/types";
 type Props = {
   getWeather: () => void,
   fetching: boolean,
+  fetchingLocation: boolean,
   currentData?: HourlyData,
   dailyData?: any
 };
 class MainScreen extends Component<Props> {
-  renderNoData() {
-    if (!this.props.currentData) {
-      return (
-        <View style={styles.noDataContainer}>
-          <Text style={styles.noDataText}>
-            Pull down to fetch weather data!
-          </Text>
-        </View>
-      );
-    }
-  }
 
   renderContent() {
     if (!this.props.currentData) {
@@ -66,7 +56,7 @@ class MainScreen extends Component<Props> {
         style={styles.container}
         refreshControl={
           <RefreshControl
-            refreshing={this.props.fetching}
+            refreshing={this.props.fetchingLocation || this.props.fetching}
             onRefresh={this.props.getWeather}
           />
         }
@@ -98,6 +88,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     fetching: selectors.getFetching(state),
+    fetchingLocation: selectors.getFetchingLocation(state),
     currentData: selectors.getCurrentData(state),
     dailyData: selectors.getDailyData(state)
   };
