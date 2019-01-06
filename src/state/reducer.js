@@ -3,7 +3,9 @@ import * as actions from './actions';
 
 const initState = {
   fetching: false,
+  fetchingLocation: false,
   weatherData: {},
+  locationData: {},
   error: '',
 };
 
@@ -18,6 +20,16 @@ export default function reducer(state = initState, action) {
         ...state,
         fetching: false,
         error: "Error fetching weather"
+      };
+    case actions.GET_LOCATION:
+      return { ...state, fetchingLocation: true, error: '', };
+    case actions.GET_LOCATION_SUCCESS:
+      return { ...state, fetchingLocation: false, locationData: action.locationData };
+    case actions.GET_LOCATION_FAIL:
+      return {
+        ...state,
+        fetchingLocation: false,
+        error: "Error fetching location!!"
       };
     default:
       return state;

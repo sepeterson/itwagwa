@@ -106,7 +106,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getWeather: id => {
-      dispatch(actions.getWeather());
+      dispatch(actions.getLocation());
     }
   };
 };
