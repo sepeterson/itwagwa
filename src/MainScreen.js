@@ -20,17 +20,44 @@ import type { HourlyData } from "./state/types";
 type Props = {
   getWeather: () => void,
   fetching: boolean,
-  currentData?: HourlyData
+  currentData?: HourlyData,
+  dailyData?: any
 };
 class MainScreen extends Component<Props> {
   renderNoData() {
     if (!this.props.currentData) {
       return (
         <View style={styles.noDataContainer}>
-          <Text style={styles.noDataText}>Pull down to fetch weather data!</Text>
+          <Text style={styles.noDataText}>
+            Pull down to fetch weather data!
+          </Text>
         </View>
       );
     }
+  }
+
+  renderContent() {
+    if (!this.props.currentData) {
+      return (
+        <View style={styles.noDataContainer}>
+          <Text style={styles.noDataText}>
+            Pull down to fetch weather data!
+          </Text>
+        </View>
+      );
+    }
+    return (
+      <View style={styles.container}>
+        <View style={styles.tileContainer}>
+          <WeatherTile weatherData={this.props.currentData} />
+        </View>
+        {this.props.dailyData.map((item, i) => (
+          <View key={i} style={styles.tileContainer}>
+            <WeatherTile weatherData={item} />
+          </View>
+        ))}
+      </View>
+    );
   }
 
   render() {
@@ -44,12 +71,7 @@ class MainScreen extends Component<Props> {
           />
         }
       >
-        {this.props.currentData && (
-          <View style={styles.tileContainer}>
-            <WeatherTile weatherData={this.props.currentData} />
-          </View>
-        )}
-        {this.renderNoData()}
+        {this.renderContent()}
       </ScrollView>
     );
   }
@@ -65,17 +87,19 @@ const styles = StyleSheet.create({
     paddingTop: 32
   },
   noDataText: {
-    color: 'white',
+    color: "white"
   },
   tileContainer: {
     padding: 12,
+    paddingBottom: 0
   }
 });
 
 const mapStateToProps = state => {
   return {
     fetching: selectors.getFetching(state),
-    currentData: selectors.getCurrentData(state)
+    currentData: selectors.getCurrentData(state),
+    dailyData: selectors.getDailyData(state)
   };
 };
 

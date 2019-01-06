@@ -9,11 +9,43 @@ type Props = { weatherData: HourlyData };
 export default class WeatherTile extends Component<Props> {
   render() {
     const data = this.props.weatherData;
+    if (data.temperatureHigh) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.textContainer}>
+            <Text style={[styles.smallText, styles.allText]}>
+              {Moment.unix(data.time).format("dddd, MMMM Do")}
+            </Text>
+            <Text style={[styles.largeText, styles.allText]}>
+              {data.summary}
+            </Text>
+            <Text style={[styles.smallText, styles.allText]}>
+              High: {`${data.temperatureHigh}°`}
+            </Text>
+            <Text style={[styles.smallText, styles.allText]}>
+              Low: {`${data.temperatureLow}°`}
+            </Text>
+            <Text style={[styles.smallText, styles.allText]}>
+              Dew point: {data.dewPoint}°
+            </Text>
+            <Text style={[styles.smallText, styles.allText]}>
+              Humidity: {data.humidity * 100}%
+            </Text>
+            <Text style={[styles.smallText, styles.allText]}>
+              Wind speed: {data.windSpeed} mph
+            </Text>
+            <Text style={[styles.smallText, styles.allText]}>
+              Precipitation chance: {data.precipProbability * 100}%
+            </Text>
+          </View>
+        </View>
+      );
+    }
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={[styles.smallText, styles.allText]}>
-            {Moment().format("MMMM Do, h:mm a")}
+            Now, {Moment.unix(data.time).format("MMMM Do, h:mm a")}
           </Text>
           <Text style={[styles.largeText, styles.allText]}>{data.summary}</Text>
           <Text style={[styles.largeText, styles.allText]}>{`${
