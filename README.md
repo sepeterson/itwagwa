@@ -1,2 +1,6 @@
 # itwagwa
-Imagine there were a good weather app (there isn't)
+A dumb and lightweight weather app I'm making for myself.
+
+Uses the Dark Sky API
+
+https://darksky.net/dev
