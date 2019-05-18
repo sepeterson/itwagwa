@@ -1,6 +1,6 @@
-add ESLint (lol)
-get flow working
-add currently and hourly data flow types
+add ESLint (lol) x
+get flow working x
+add currently and hourly data flow types x
 split tiles into separate hourly, currently, and daily components that all operate on a WeatherTile base
 choose an ios compatible refresh indicator
 add horizontal scrolling hourly tiles

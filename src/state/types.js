@@ -34,7 +34,7 @@ export type CurrentlyData = {
   precipIntensity: number,
   precipProbability: number,
   pressure: number,
-  summary: String,
+  summary: string,
   temperature: number,
   time: number,
   uvIndex: number,

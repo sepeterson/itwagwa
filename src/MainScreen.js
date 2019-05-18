@@ -7,17 +7,18 @@ import {
   StyleSheet, Text, View, ScrollView, RefreshControl, SafeAreaView,
 } from 'react-native';
 import { connect } from 'react-redux';
-import WeatherTile from './WeatherTile';
+import CurrentlyTile from './CurrentlyTile';
+import DailyTile from './DailyTile';
 import * as actions from './state/actions';
 import * as selectors from './state/selectors';
-import type { HourlyData } from './state/types';
+import type { DailyData, CurrentlyData } from './state/types';
 
 type Props = {
   getWeather: () => void,
   fetching: boolean,
   fetchingLocation: boolean,
-  currentData?: HourlyData,
-  dailyData?: HourlyData[],
+  currentData?: CurrentlyData,
+  dailyData?: DailyData[],
 };
 
 class MainScreen extends Component<Props> {
@@ -38,11 +39,11 @@ class MainScreen extends Component<Props> {
     return (
       <View style={styles.container}>
         <View style={styles.tileContainer}>
-          <WeatherTile weatherData={currentData} />
+          <CurrentlyTile weatherData={currentData} />
         </View>
         {dailyData.map(item => (
           <View key={item.time} style={styles.tileContainer}>
-            <WeatherTile weatherData={item} />
+            <DailyTile weatherData={item} />
           </View>
         ))}
       </View>
