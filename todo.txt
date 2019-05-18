@@ -1,0 +1,8 @@
+add ESLint (lol)
+get flow working
+add currently and hourly data flow types
+split tiles into separate hourly, currently, and daily components that all operate on a WeatherTile base
+choose an ios compatible refresh indicator
+add horizontal scrolling hourly tiles
+add darkSky instructions to the readme
+make it fun
