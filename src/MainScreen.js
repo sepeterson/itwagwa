@@ -56,9 +56,13 @@ class MainScreen extends Component<Props> {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.container}
-          refreshControl={
-            <RefreshControl refreshing={fetchingLocation || fetching} onRefresh={getWeather} />
-          }
+          refreshControl={(
+            <RefreshControl
+              refreshing={fetchingLocation || fetching}
+              onRefresh={getWeather}
+              tintColor="white"
+            />
+)}
         >
           {this.renderContent()}
         </ScrollView>

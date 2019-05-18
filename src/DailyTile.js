@@ -12,7 +12,7 @@ const DailyTile = (props: Props) => {
   return (
     <WeatherTile>
       <View style={styles.textContainer}>
-        <Text style={[styles.smallText, styles.allText]}>
+        <Text style={[styles.largeText, styles.allText]}>
           {Moment.unix(weatherData.time).format('dddd, MMMM Do')}
         </Text>
         <Text style={[styles.largeText, styles.allText]}>{weatherData.summary}</Text>

@@ -12,7 +12,7 @@ const CurrentlyTile = (props: Props) => {
   return (
     <WeatherTile>
       <View style={styles.textContainer}>
-        <Text style={[styles.smallText, styles.allText]}>
+        <Text style={[styles.largeText, styles.allText]}>
           Now,
           {' '}
           {Moment.unix(weatherData.time).format('MMMM Do, h:mm a')}
