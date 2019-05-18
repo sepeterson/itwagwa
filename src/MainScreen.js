@@ -22,7 +22,7 @@ type Props = {
 
 class MainScreen extends Component<Props> {
   static defaultProps = {
-    currentData: {},
+    currentData: undefined,
     dailyData: [],
   };
 
@@ -40,8 +40,8 @@ class MainScreen extends Component<Props> {
         <View style={styles.tileContainer}>
           <WeatherTile weatherData={currentData} />
         </View>
-        {dailyData.map((item, i) => (
-          <View key={i} style={styles.tileContainer}>
+        {dailyData.map(item => (
+          <View key={item.time} style={styles.tileContainer}>
             <WeatherTile weatherData={item} />
           </View>
         ))}
@@ -50,16 +50,14 @@ class MainScreen extends Component<Props> {
   }
 
   render() {
+    const { fetchingLocation, fetching, getWeather } = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.container}
-          refreshControl={(
-            <RefreshControl
-              refreshing={this.props.fetchingLocation || this.props.fetching}
-              onRefresh={this.props.getWeather}
-            />
-)}
+          refreshControl={
+            <RefreshControl refreshing={fetchingLocation || fetching} onRefresh={getWeather} />
+          }
         >
           {this.renderContent()}
         </ScrollView>
