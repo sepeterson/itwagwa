@@ -1,6 +1,13 @@
 # itwagwa
-A dumb and lightweight weather app I'm making for myself.
 
-Uses the Dark Sky API
+This is a very small and extremely dumb weather app.
 
-https://darksky.net/dev
+Uses the Dark Sky API. You have to [create a developer account here](https://darksky.net/dev) to get an API key.
+
+Then, create `apiKey.json` in your project root with the following:
+
+```
+{
+  "darkSkyKey":"yourkeygoeshere"
+}
+```
