@@ -10,3 +10,7 @@ export const getCurrentData = (state: AppState) => (state.weatherData.currently 
 export const getDailyData = (state: AppState) => (state.weatherData.daily && state.weatherData.daily.data
   ? state.weatherData.daily.data
   : undefined);
+
+export const getHourlyData = (state: AppState) => (state.weatherData.hourly && state.weatherData.hourly.data
+  ? state.weatherData.hourly.data
+  : undefined);

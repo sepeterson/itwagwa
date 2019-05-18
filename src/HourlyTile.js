@@ -4,17 +4,15 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import Moment from 'moment';
 import WeatherTile, { styles } from './WeatherTile';
-import type { CurrentlyData } from './state/types';
+import type { CurrentlyData, HourlyData } from './state/types';
 
-type Props = { weatherData: CurrentlyData };
-const CurrentlyTile = (props: Props) => {
+type Props = { weatherData: CurrentlyData | HourlyData };
+const HourlyTile = (props: Props) => {
   const { weatherData } = props;
   return (
     <WeatherTile>
       <View style={styles.textContainer}>
         <Text style={[styles.largeText, styles.allText]}>
-          Now,
-          {' '}
           {Moment.unix(weatherData.time).format('MMMM Do, h:mm a')}
         </Text>
         <Text style={[styles.largeText, styles.allText]}>{weatherData.summary}</Text>
@@ -46,4 +44,4 @@ mph
   );
 };
 
-export default CurrentlyTile;
+export default HourlyTile;

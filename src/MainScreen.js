@@ -7,11 +7,11 @@ import {
   StyleSheet, Text, View, ScrollView, RefreshControl, SafeAreaView,
 } from 'react-native';
 import { connect } from 'react-redux';
-import CurrentlyTile from './CurrentlyTile';
+import HourlyTile from './HourlyTile';
 import DailyTile from './DailyTile';
 import * as actions from './state/actions';
 import * as selectors from './state/selectors';
-import type { DailyData, CurrentlyData } from './state/types';
+import type { DailyData, CurrentlyData, HourlyData } from './state/types';
 
 type Props = {
   getWeather: () => void,
@@ -19,17 +19,19 @@ type Props = {
   fetchingLocation: boolean,
   currentData?: CurrentlyData,
   dailyData?: DailyData[],
+  hourlyData?: HourlyData[],
 };
 
 class MainScreen extends Component<Props> {
   static defaultProps = {
     currentData: undefined,
     dailyData: [],
+    hourlyData: [],
   };
 
   renderContent() {
-    const { currentData, dailyData } = this.props;
-    if (!currentData) {
+    const { currentData, dailyData, hourlyData } = this.props;
+    if (!currentData || !dailyData || !hourlyData) {
       return (
         <View style={styles.noDataContainer}>
           <Text style={styles.noDataText}>Pull down to fetch weather data!</Text>
@@ -38,9 +40,17 @@ class MainScreen extends Component<Props> {
     }
     return (
       <View style={styles.container}>
-        <View style={styles.tileContainer}>
-          <CurrentlyTile weatherData={currentData} />
-        </View>
+        <ScrollView horizontal>
+          <View style={styles.tileContainer}>
+            <HourlyTile weatherData={currentData} />
+          </View>
+          {hourlyData.slice(1).map(item => (
+            <View key={item.time} style={styles.tileContainer}>
+              <HourlyTile weatherData={item} />
+            </View>
+          ))}
+        </ScrollView>
+
         {dailyData.map(item => (
           <View key={item.time} style={styles.tileContainer}>
             <DailyTile weatherData={item} />
@@ -94,6 +104,7 @@ const mapStateToProps = state => ({
   fetchingLocation: selectors.getFetchingLocation(state),
   currentData: selectors.getCurrentData(state),
   dailyData: selectors.getDailyData(state),
+  hourlyData: selectors.getHourlyData(state),
 });
 
 const mapDispatchToProps = dispatch => ({
