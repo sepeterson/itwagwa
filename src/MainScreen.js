@@ -2,46 +2,45 @@
  * @flow
  */
 
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  RefreshControl,
-  SafeAreaView,
-} from "react-native";
-import WeatherTile from "./WeatherTile";
-import { connect } from "react-redux";
-import * as actions from "./state/actions";
-import * as selectors from "./state/selectors";
-import type { HourlyData } from "./state/types";
+  StyleSheet, Text, View, ScrollView, RefreshControl, SafeAreaView,
+} from 'react-native';
+import { connect } from 'react-redux';
+import WeatherTile from './WeatherTile';
+import * as actions from './state/actions';
+import * as selectors from './state/selectors';
+import type { HourlyData } from './state/types';
 
 type Props = {
   getWeather: () => void,
   fetching: boolean,
   fetchingLocation: boolean,
   currentData?: HourlyData,
-  dailyData?: any
+  dailyData?: HourlyData[],
 };
+
 class MainScreen extends Component<Props> {
+  static defaultProps = {
+    currentData: {},
+    dailyData: [],
+  };
 
   renderContent() {
-    if (!this.props.currentData) {
+    const { currentData, dailyData } = this.props;
+    if (!currentData) {
       return (
         <View style={styles.noDataContainer}>
-          <Text style={styles.noDataText}>
-            Pull down to fetch weather data!
-          </Text>
+          <Text style={styles.noDataText}>Pull down to fetch weather data!</Text>
         </View>
       );
     }
     return (
       <View style={styles.container}>
         <View style={styles.tileContainer}>
-          <WeatherTile weatherData={this.props.currentData} />
+          <WeatherTile weatherData={currentData} />
         </View>
-        {this.props.dailyData.map((item, i) => (
+        {dailyData.map((item, i) => (
           <View key={i} style={styles.tileContainer}>
             <WeatherTile weatherData={item} />
           </View>
@@ -52,17 +51,15 @@ class MainScreen extends Component<Props> {
 
   render() {
     return (
-      <SafeAreaView
-        style={styles.container}
-      >
+      <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.container}
-          refreshControl={
+          refreshControl={(
             <RefreshControl
               refreshing={this.props.fetchingLocation || this.props.fetching}
               onRefresh={this.props.getWeather}
             />
-          }
+)}
         >
           {this.renderContent()}
         </ScrollView>
@@ -74,39 +71,35 @@ class MainScreen extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#565c60"
+    backgroundColor: '#565c60',
   },
   noDataContainer: {
-    alignItems: "center",
-    paddingTop: 32
+    alignItems: 'center',
+    paddingTop: 32,
   },
   noDataText: {
-    color: "white"
+    color: 'white',
   },
   tileContainer: {
     padding: 12,
-    paddingBottom: 0
-  }
+    paddingBottom: 0,
+  },
 });
 
-const mapStateToProps = state => {
-  return {
-    fetching: selectors.getFetching(state),
-    fetchingLocation: selectors.getFetchingLocation(state),
-    currentData: selectors.getCurrentData(state),
-    dailyData: selectors.getDailyData(state)
-  };
-};
+const mapStateToProps = state => ({
+  fetching: selectors.getFetching(state),
+  fetchingLocation: selectors.getFetchingLocation(state),
+  currentData: selectors.getCurrentData(state),
+  dailyData: selectors.getDailyData(state),
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getWeather: id => {
-      dispatch(actions.getLocation());
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getWeather: () => {
+    dispatch(actions.getLocation());
+  },
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(MainScreen);

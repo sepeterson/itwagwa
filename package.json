@@ -16,6 +16,7 @@
     "redux-saga": "^0.16.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "babel-jest": "23.0.1",
     "babel-preset-react-native": "4.0.0",
     "eslint": "^5.16.0",
@@ -25,6 +26,7 @@
     "eslint-plugin-react": "^7.13.0",
     "flow-bin": "0.75.0",
     "jest": "23.1.0",
+    "prettier-eslint": "^8.8.2",
     "react-test-renderer": "16.3.1",
     "redux-devtools": "^3.4.1"
   },

@@ -31,6 +31,7 @@ node_modules/react-native/flow-github/
 emoji=true
 
 module.system=haste
+module.system.node.resolve_dirname=node_modules
 module.system.haste.use_name_reducers=true
 # get basename
 module.system.haste.name_reducers='^.*/\([a-zA-Z0-9$_.-]+\.js\(\.flow\)?\)$' -> '\1'
