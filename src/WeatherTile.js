@@ -71,18 +71,19 @@ export default class WeatherTile extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#F5FCFF",
+    borderRadius: 12,
   },
   largeText: {
-    fontSize: 22
+    fontSize: 22,
   },
   smallText: {
-    fontSize: 12
+    fontSize: 12,
   },
   allText: {
-    color: "black"
+    color: "black",
   },
   textContainer: {
-    padding: 8
+    padding: 8,
   }
 });

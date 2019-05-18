@@ -8,13 +8,13 @@ import {
   Text,
   View,
   ScrollView,
-  RefreshControl
+  RefreshControl,
+  SafeAreaView,
 } from "react-native";
 import WeatherTile from "./WeatherTile";
 import { connect } from "react-redux";
 import * as actions from "./state/actions";
 import * as selectors from "./state/selectors";
-import apiKey from "../apiKey.json";
 import type { HourlyData } from "./state/types";
 
 type Props = {
@@ -52,17 +52,21 @@ class MainScreen extends Component<Props> {
 
   render() {
     return (
-      <ScrollView
+      <SafeAreaView
         style={styles.container}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.props.fetchingLocation || this.props.fetching}
-            onRefresh={this.props.getWeather}
-          />
-        }
       >
-        {this.renderContent()}
-      </ScrollView>
+        <ScrollView
+          style={styles.container}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.props.fetchingLocation || this.props.fetching}
+              onRefresh={this.props.getWeather}
+            />
+          }
+        >
+          {this.renderContent()}
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
