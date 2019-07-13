@@ -1,6 +1,6 @@
 # itwagwa
 
-This is a very small and extremely dumb weather app.
+This is a very small and extremely dumb React Native weather app.
 
 Uses the Dark Sky API. You have to [create a developer account here](https://darksky.net/dev) to get an API key.
 
